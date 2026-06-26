@@ -587,7 +587,7 @@ function showDetail(id){
   }
 
   const w=WARNA_CFG[bin.warna]||{grad:"135deg,#555 0%,#888 100%",light:"#f0f0f0",dark:"#555",dot:"#888",label:bin.warna};
-  const icon={Hijau:"♻️",Kuning:"📦",Merah:"⚠️",Biru:"🔵"}[bin.warna]||"🗑️";
+  const icon={Hijau:"♻️",Kuning:"📦",Merah:"☠️",Biru:"🔩🪵"}[bin.warna]||"🗑️";
   const isB3=bin.b3;
 
   out.innerHTML=`
@@ -598,7 +598,7 @@ function showDetail(id){
       <div class="detail-badges">
         <div class="dbadge">${w.label}</div>
         <div class="dbadge">${bin.ukuran}</div>
-        <div class="dbadge ${isB3?'b3-tag':'nb3-tag'}">${isB3?'⚠️ Hazardous (B3)':'✅ Non-Hazardous'}</div>
+        <div class="dbadge ${isB3?'b3-tag':'nb3-tag'}">${isB3?'☠️ Hazardous (B3)':'✅ Non-Hazardous'}</div>
       </div>
     </div>
     <div class="info-grid">
@@ -620,7 +620,7 @@ function showDetail(id){
       </div>
       <div class="ic">
         <div class="ic-label">Waste Category</div>
-        <div class="ic-value" style="color:${isB3?'#C0392B':'#0B7A45'}">${isB3?'⚠️ Hazardous':'✅ Non-Hazardous'}</div>
+        <div class="ic-value" style="color:${isB3?'#C0392B':'#0B7A45'}">${isB3?'☠️ Hazardous':'✅ Non-Hazardous'}</div>
       </div>
       <div class="ic ic-full">
         <div class="ic-label">Location</div>
