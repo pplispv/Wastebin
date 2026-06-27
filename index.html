@@ -295,39 +295,39 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         <div class="section-title">Bin Size Distribution</div>
         <div class="section-sub">Total number of waste bins by type and category.</div>
         <div class="stat-list">
-          <div class="stat-item"><div class="stat-label">200 Liter Drums</div><div class="stat-value" id="count-200l">0</div></div>
-          <div class="stat-item"><div class="stat-label">1100 Liter Bins</div><div class="stat-value" id="count-1100l">0</div></div>
+          <div class="stat-item"><div class="stat-label">Waste Bins 200 Liter</div><div class="stat-value" id="count-200l">0</div></div>
+          <div class="stat-item"><div class="stat-label">Waste Bins 1100 Liter</div><div class="stat-value" id="count-1100l">0</div></div>
           <div class="stat-item"><div class="stat-label">Metal Hazard Boxes</div><div class="stat-value" id="count-metal">0</div></div>
-          <div class="stat-item"><div class="stat-label">Specialist / Aerosol</div><div class="stat-value" id="count-aerosol">0</div></div>
+          <div class="stat-item"><div class="stat-label">Aerosol Bin</div><div class="stat-value" id="count-aerosol">0</div></div>
         </div>
         <div class="legend-card">
           <div class="legend-title">Color Coding Directives:</div>
           <ul class="legend-list">
-            <li><strong>Green:</strong> Organic / General Waste</li>
-            <li><strong>Yellow:</strong> Non-organic / Recyclables</li>
-            <li><strong>Red:</strong> Toxic & Hazardous (Limbah B3)</li>
-            <li><strong>Blue:</strong> Dedicated Glass or Paper</li>
+            <li><strong>Green:</strong> Organic / Biodegradable Waste</li>
+            <li><strong>Yellow:</strong> Light Inorganic / Paper, Plastic</li>
+            <li><strong>Red:</strong> Hazardous Waste (Limbah B3)</li>
+            <li><strong>Blue:</strong> Small Wood & Metal</li>
           </ul>
         </div>
       </div>
 
       <div class="section-card">
-        <div class="section-title">Interactive Bin Registry Browser</div>
+        <div class="section-title">Waste Bin Browser</div>
         <div class="registry-top filters-row">
           <div class="registry-dropdown compact-dropdown">
-            <label for="filter-color">All Colors</label>
+            <label for="filter-color">Filter by Colors</label>
             <select id="filter-color" onchange="applyRegistryFilters()">
               <option value="all">All Colors</option>
             </select>
           </div>
           <div class="registry-dropdown compact-dropdown">
-            <label for="filter-area">All Areas</label>
+            <label for="filter-area">Filter by Areas</label>
             <select id="filter-area" onchange="applyRegistryFilters()">
               <option value="all">All Areas</option>
             </select>
           </div>
           <div class="registry-dropdown compact-dropdown">
-            <label for="filter-class">All Safety Class</label>
+            <label for="filter-class">Filter by Catargories</label>
             <select id="filter-class" onchange="applyRegistryFilters()">
               <option value="all">All Safety Class</option>
               <option value="non-b3">Non Hazardous</option>
