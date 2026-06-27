@@ -67,45 +67,134 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .hdr-detail-meta p{font-size:10px;color:rgba(255,255,255,.5);margin-top:1px}
 
 /* ── Content ── */
-.wrap{flex:1;padding:16px;max-width:480px;margin:0 auto;width:100%}
+.wrap{flex:1;padding:16px;max-width:980px;margin:0 auto;width:100%}
+
+.grid-two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.grid-two .search-card{margin-bottom:0}
+
+.section-card{background:linear-gradient(180deg,rgba(255,255,255,.98),#fff);border-radius:var(--radius);box-shadow:0 24px 60px rgba(15,41,66,.08);border:1px solid rgba(228,234,240,.8);padding:20px}
+.section-title{font-size:16px;font-weight:800;color:var(--text1);margin-bottom:8px}
+.section-sub{font-size:13px;color:var(--text3);margin-bottom:20px}
+.stat-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat-item{background:linear-gradient(180deg,#f4fbf8,#eef7f1);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;min-height:100px;justify-content:center;border:1px solid rgba(11,122,71,.08)}
+.stat-item .stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#4d6b5b}
+.stat-item .stat-value{font-size:24px;font-weight:800;color:var(--text1)}
+.registry-top{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
+.filters-row{background:rgba(15,41,66,.03);border-radius:18px;padding:14px;}
+.registry-dropdown{flex:1;min-width:140px;display:flex;flex-direction:column;gap:6px}
+.compact-dropdown{flex:1 1 180px;}
+.registry-dropdown label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
+.registry-dropdown select{padding:10px 12px;border-radius:12px;border:1px solid rgba(228,234,240,.9);background:var(--surface);color:var(--text1);font-size:13px;outline:none;width:100%;box-shadow:inset 0 1px 2px rgba(15,41,66,.05)}
+.registry-list{display:grid;gap:12px;max-height:min(420px,55vh);overflow-y:auto;padding-right:4px}
+.registry-list::-webkit-scrollbar{width:8px}
+.registry-list::-webkit-scrollbar-thumb{background:rgba(15,41,66,.2);border-radius:999px}
+.registry-item{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-radius:22px;background:#fff;border:1px solid rgba(15,41,66,.08);gap:18px;box-shadow:0 18px 38px rgba(15,41,66,.08);transition:transform .18s,box-shadow .18s;cursor:pointer}
+.registry-item:hover{transform:translateY(-1px);box-shadow:0 20px 38px rgba(15,41,66,.14)}
+.registry-item .code-pill{background:linear-gradient(135deg,#0F2942 0%,#1A3F63 100%);color:#fff;border-radius:16px;padding:10px 14px;font-weight:800;letter-spacing:.04em;font-size:13px;min-width:72px;text-align:center}
+.registry-item .item-meta{flex:1;min-width:0}
+.registry-item .item-meta h3{font-size:14px;font-weight:700;color:var(--text1);margin-bottom:4px}
+.registry-item .item-meta p{font-size:12px;color:var(--text2);line-height:1.5}
+.registry-item .item-badge{padding:8px 12px;border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.registry-item .item-badge.green{background:#E8F8F5;color:#0B7A45;border:1px solid rgba(11,122,71,.12)}
+.registry-item .item-badge.yellow{background:#FDF5E9;color:#8A6400;border:1px solid rgba(138,100,0,.12)}
+.registry-item .item-badge.red{background:#FDECEC;color:#C0392B;border:1px solid rgba(192,57,43,.12)}
+.registry-item .item-badge.blue{background:#EAF3FE;color:#1A5276;border:1px solid rgba(23,94,148,.12)}
+.registry-footer{margin-top:14px;padding-top:12px;border-top:1px solid rgba(228,234,240,.9);font-size:12px;color:var(--text3)}
+.legend-card{margin-top:20px;background:rgba(239,249,255,.8);border-radius:16px;padding:18px;}
+.legend-title{font-size:13px;font-weight:700;color:var(--text1);margin-bottom:10px}
+.legend-list{list-style:none;padding-left:0;margin:0;color:var(--text2);font-size:13px;line-height:1.6}
+.legend-list li{margin-bottom:10px}
+.legend-list li strong{color:var(--text1)}
+
+@media (max-width: 820px) {
+  .wrap{padding:14px;}
+  .hero-stats{flex-wrap:wrap;}
+  .hero-stat{flex:1 1 calc(50% - 10px);min-width:calc(50% - 10px);}
+  .hero-stat .n{font-size:18px;}
+  .grid-two{grid-template-columns:1fr;}
+  .registry-top{grid-template-columns:1fr;}
+  .registry-dropdown{width:100%;}
+  .search-card,.scan-card,.section-card{margin-bottom:16px;}
+  .registry-list{max-height:320px;}
+}
+
+@media (max-width: 520px) {
+  body{font-size:14px;}
+  .hero{padding:18px;}
+  .hero-label{font-size:9px;}
+  .hero-title{font-size:22px;}
+  .hero-sub{font-size:11px;}
+  .search-row{flex-direction:column;}
+  .search-row input{width:100%;}
+  .search-row button{width:100%;}
+  .scan-btn{width:100%;}
+  .registry-item{flex-direction:column;align-items:flex-start;}
+  .registry-item .code-pill{width:auto;}
+  .registry-item .item-meta h3{font-size:13px;}
+  .registry-item .item-meta p{font-size:12px;}
+  .registry-top{gap:10px;}
+  .stat-list{grid-template-columns:1fr;}
+}
 
 /* ── Hero ── */
 .hero{
-  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
-  border-radius:20px;padding:22px 20px;margin-bottom:16px;
+  background:linear-gradient(135deg,#112b4c 0%,#1a4267 100%);
+  border-radius:24px;padding:26px 24px;margin-bottom:18px;
   color:#fff;position:relative;overflow:hidden;
 }
-.hero::before{content:"";position:absolute;right:-24px;top:-24px;width:130px;height:130px;border-radius:50%;background:var(--teal);opacity:.12;}
-.hero::after{content:"";position:absolute;right:16px;top:24px;width:70px;height:70px;border-radius:50%;background:var(--teal2);opacity:.15;}
-.hero-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;opacity:.55;margin-bottom:5px}
-.hero-title{font-size:26px;font-weight:700;letter-spacing:.3px;line-height:1}
-.hero-sub{font-size:12px;opacity:.65;margin-top:5px;line-height:1.4}
-.hero-stats{display:flex;gap:10px;margin-top:16px}
-.hero-stat{background:rgba(255,255,255,.1);border-radius:10px;padding:8px 12px;flex:1;text-align:center}
-.hero-stat .n{font-size:20px;font-weight:700}
-.hero-stat .l{font-size:9px;opacity:.6;margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.hero::before{content:"";position:absolute;right:-28px;top:-28px;width:150px;height:150px;border-radius:50%;background:rgba(13,206,180,.18);opacity:.95;}
+.hero::after{content:"";position:absolute;right:20px;top:30px;width:80px;height:80px;border-radius:50%;background:rgba(11,154,138,.2);opacity:.95;}
+.hero-label{font-size:11px;text-transform:uppercase;letter-spacing:.16em;opacity:.7;margin-bottom:8px;color:#d3eef2}
+.hero-title{font-size:28px;font-weight:800;letter-spacing:.35px;line-height:1;margin-bottom:6px}
+.hero-sub{font-size:13px;opacity:.75;margin-top:6px;line-height:1.6;color:#d9eef2}
+.hero-stats{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.hero-stat{background:rgba(255,255,255,.14);border-radius:16px;padding:16px 14px;flex:1;min-width:110px;text-align:center;backdrop-filter:blur(8px);}
+.hero-stat .n{font-size:22px;font-weight:800}
+.hero-stat .l{font-size:10px;opacity:.75;margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
 
 /* ── Search card ── */
 .search-card{
-  background:var(--card);border-radius:var(--radius);padding:16px;
-  margin-bottom:16px;box-shadow:0 1px 4px rgba(15,41,66,.08),0 0 0 1px var(--border);
+  background:linear-gradient(180deg,#fff,#f8fbff);border-radius:22px;padding:18px;
+  margin-bottom:16px;box-shadow:0 18px 38px rgba(15,41,66,.06);border:1px solid rgba(228,234,240,.9);
 }
-.search-label{font-size:11px;font-weight:600;color:var(--text2);margin-bottom:8px;
-  text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
-.search-row{display:flex;gap:8px}
+.search-label{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:10px;
+  text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+.search-row{display:flex;gap:10px}
 .search-row input{
-  flex:1;padding:12px 14px;border:1.5px solid var(--border);
-  border-radius:10px;font-size:14px;color:var(--text1);
-  background:var(--surface);outline:none;transition:border .15s;font-family:inherit;
+  flex:1;padding:14px 16px;border:1px solid rgba(228,234,240,.95);
+  border-radius:14px;font-size:14px;color:var(--text1);
+  background:#fff;outline:none;transition:border .15s,box-shadow .15s;font-family:inherit;
 }
 .search-row input::placeholder{color:var(--text3)}
-.search-row input:focus{border-color:var(--teal);background:#fff}
+.search-row input:focus{border-color:var(--teal);box-shadow:0 0 0 4px rgba(13,206,180,.11);background:#fff}
 .search-row button{
-  background:linear-gradient(135deg,var(--teal) 0%,var(--teal2) 100%);
-  color:#fff;border:none;border-radius:10px;padding:12px 20px;
-  font-size:14px;font-weight:600;cursor:pointer;transition:opacity .15s;
+  background:linear-gradient(135deg,#0b9e8a 0%,#0dcfb4 100%);
+  color:#fff;border:none;border-radius:14px;padding:14px 20px;
+  font-size:14px;font-weight:700;cursor:pointer;transition:opacity .15s,transform .15s;
 }
-.search-row button:active{opacity:.85}
+.search-row button:hover{transform:translateY(-1px)}
+.search-row button:active{opacity:.9}
+
+.scan-card{display:flex;flex-direction:column;gap:10px}
+.scan-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:12px 14px;border:none;border-radius:10px;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);
+  color:#fff;font-size:14px;font-weight:700;cursor:pointer;
+}
+.scan-btn:active{opacity:.9}
+.scan-hint{font-size:12px;color:var(--text2);line-height:1.5}
+.scan-modal{position:fixed;inset:0;background:rgba(7,18,32,.72);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.scan-modal.hidden{display:none}
+.scan-panel{width:min(100%,420px);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.28)}
+.scan-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border)}
+.scan-title{font-size:15px;font-weight:700;color:var(--text1)}
+.scan-close{border:none;background:transparent;font-size:22px;color:var(--text2);cursor:pointer}
+.scan-body{padding:14px 16px 16px}
+.scan-video{width:100%;height:260px;border-radius:12px;background:#000;object-fit:cover}
+.scan-status{margin-top:10px;font-size:13px;color:var(--text2);text-align:center;line-height:1.5}
+.scan-actions{display:flex;justify-content:center;margin-top:12px}
+.scan-actions button{padding:10px 14px;border:none;border-radius:10px;background:var(--surface);color:var(--text1);font-weight:600;cursor:pointer}
 
 /* ── Footer ── */
 .footer-note{text-align:center;font-size:10px;color:var(--text3);padding:8px 0 24px;line-height:1.7}
@@ -192,6 +281,68 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       </div>
     </div>
 
+    <div class="search-card scan-card">
+      <div class="search-label">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="2"/></svg>
+        Quick access
+      </div>
+      <button class="scan-btn" onclick="openScanner()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="2"/></svg>
+        Scan QR Code
+      </button>
+      <div class="scan-hint">Use the camera to scan the QR code on the bin and open the detail page instantly.</div>
+    </div>
+
+    <div class="grid-two">
+      <div class="section-card">
+        <div class="section-title">Bin Size Distribution</div>
+        <div class="section-sub">Total number of waste bins by type and category.</div>
+        <div class="stat-list">
+          <div class="stat-item"><div class="stat-label">200 Liter Drums</div><div class="stat-value" id="count-200l">0</div></div>
+          <div class="stat-item"><div class="stat-label">1100 Liter Bins</div><div class="stat-value" id="count-1100l">0</div></div>
+          <div class="stat-item"><div class="stat-label">Metal Hazard Boxes</div><div class="stat-value" id="count-metal">0</div></div>
+          <div class="stat-item"><div class="stat-label">Specialist / Aerosol</div><div class="stat-value" id="count-aerosol">0</div></div>
+        </div>
+        <div class="legend-card">
+          <div class="legend-title">Color Coding Directives:</div>
+          <ul class="legend-list">
+            <li><strong>Green:</strong> Organic / General Waste</li>
+            <li><strong>Yellow:</strong> Non-organic / Recyclables</li>
+            <li><strong>Red:</strong> Toxic & Hazardous (Limbah B3)</li>
+            <li><strong>Blue:</strong> Dedicated Glass or Paper</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-title">Interactive Bin Registry Browser</div>
+        <div class="registry-top filters-row">
+          <div class="registry-dropdown compact-dropdown">
+            <label for="filter-color">All Colors</label>
+            <select id="filter-color" onchange="applyRegistryFilters()">
+              <option value="all">All Colors</option>
+            </select>
+          </div>
+          <div class="registry-dropdown compact-dropdown">
+            <label for="filter-area">All Areas</label>
+            <select id="filter-area" onchange="applyRegistryFilters()">
+              <option value="all">All Areas</option>
+            </select>
+          </div>
+          <div class="registry-dropdown compact-dropdown">
+            <label for="filter-class">All Safety Class</label>
+            <select id="filter-class" onchange="applyRegistryFilters()">
+              <option value="all">All Safety Class</option>
+              <option value="non-b3">Non Hazardous</option>
+              <option value="b3">Hazardous B3</option>
+            </select>
+          </div>
+        </div>
+        <div class="registry-list" id="registry-list"></div>
+        <div class="registry-footer" id="registry-footer"></div>
+      </div>
+    </div>
+
  <div class="footer-note">
       Waste Bin Indentification System<br>
       </div>
@@ -235,7 +386,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   </div>
 </div>
 
-  
+<div id="scan-modal" class="scan-modal hidden" onclick="if(event.target.id==='scan-modal') closeScanner()">
+  <div class="scan-panel">
+    <div class="scan-header">
+      <div class="scan-title">Scan Bin QR Code</div>
+      <button class="scan-close" onclick="closeScanner()" aria-label="Close">×</button>
+    </div>
+    <div class="scan-body">
+      <video id="scan-video" class="scan-video" autoplay playsinline muted></video>
+      <div class="scan-status" id="scan-status">Allow camera access to scan the QR code on the bin.</div>
+      <div class="scan-actions">
+        <button onclick="closeScanner()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const BINS = {
   "1-A": { no: 1, main: "Admin Building", owner: "Human Resource & Business Services", specific: "Admin Building", binOwner: "PPLI", warna: "Yellow", ukuran: "200L", b3: false },
@@ -649,6 +815,95 @@ function showDetail(id){
   showPage('pg-detail');
 }
 
+let scanStream = null;
+let scanActive = false;
+let scanFrameTimer = null;
+
+async function openScanner(){
+  const modal=document.getElementById('scan-modal');
+  const video=document.getElementById('scan-video');
+  const status=document.getElementById('scan-status');
+  modal.classList.remove('hidden');
+  status.textContent='Allow camera access to scan the QR code on the bin.';
+
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    status.textContent='Camera is not supported on this device. Please use manual search instead.';
+    return;
+  }
+
+  try{
+    if(scanStream){
+      scanStream.getTracks().forEach(track=>track.stop());
+    }
+    scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+    video.srcObject=scanStream;
+    await video.play();
+    scanActive=true;
+    status.textContent='Scanning... point the camera at the QR code.';
+    startScanLoop();
+  }catch(err){
+    status.textContent='Camera access was blocked or unavailable. Please use manual search instead.';
+  }
+}
+
+function closeScanner(){
+  scanActive=false;
+  if(scanFrameTimer){
+    cancelAnimationFrame(scanFrameTimer);
+    scanFrameTimer=null;
+  }
+  const modal=document.getElementById('scan-modal');
+  modal.classList.add('hidden');
+  const video=document.getElementById('scan-video');
+  if(video) video.pause();
+  if(scanStream){
+    scanStream.getTracks().forEach(track=>track.stop());
+    scanStream=null;
+  }
+}
+
+async function startScanLoop(){
+  const video=document.getElementById('scan-video');
+  const status=document.getElementById('scan-status');
+  if(!video || !scanActive) return;
+
+  if(!('BarcodeDetector' in window)){
+    status.textContent='This browser does not support automatic QR scanning. Please use manual search.';
+    scanActive=false;
+    return;
+  }
+
+  const detector=new BarcodeDetector({formats:['qr_code']});
+  const scanFrame=async()=>{
+    if(!scanActive) return;
+
+    try{
+      const canvas=document.createElement('canvas');
+      canvas.width=video.videoWidth || 320;
+      canvas.height=video.videoHeight || 240;
+      const ctx=canvas.getContext('2d');
+      if(ctx && canvas.width && canvas.height){
+        ctx.drawImage(video,0,0,canvas.width,canvas.height);
+        const barcodes=await detector.detect(canvas);
+        if(barcodes && barcodes.length>0){
+          const code=(barcodes[0].rawValue||'').trim().toUpperCase();
+          if(code){
+            closeScanner();
+            showDetail(code);
+            return;
+          }
+        }
+      }
+    }catch(err){
+      // Ignore temporary scan errors and keep trying.
+    }
+
+    scanFrameTimer=requestAnimationFrame(scanFrame);
+  };
+
+  scanFrame();
+}
+
 window.addEventListener('load',()=>{
   const id=new URLSearchParams(window.location.search).get('id');
   if(id) showDetail(id);
@@ -681,7 +936,94 @@ window.addEventListener('DOMContentLoaded', () => {
   if(document.getElementById('stat-1100l')) document.getElementById('stat-1100l').innerText = sz1100;
   if(document.getElementById('stat-metal')) document.getElementById('stat-metal').innerText = szMetal;
   if(document.getElementById('stat-aerosol')) document.getElementById('stat-aerosol').innerText = szAerosol;
+
+  if(document.getElementById('count-200l')) document.getElementById('count-200l').innerText = sz200;
+  if(document.getElementById('count-1100l')) document.getElementById('count-1100l').innerText = sz1100;
+  if(document.getElementById('count-metal')) document.getElementById('count-metal').innerText = szMetal;
+  if(document.getElementById('count-aerosol')) document.getElementById('count-aerosol').innerText = szAerosol;
+
+  populateRegistryFilters();
+  renderRegistry();
 });
+
+function getUniqueOptions(){
+  const colors = new Set();
+  const areas = new Set();
+  for(const id in BINS){
+    colors.add(BINS[id].warna);
+    areas.add(BINS[id].main);
+  }
+  return {colors:[...colors].sort(), areas:[...areas].sort()};
+}
+
+function populateRegistryFilters(){
+  const colorSelect = document.getElementById('filter-color');
+  const areaSelect = document.getElementById('filter-area');
+  const {colors, areas} = getUniqueOptions();
+
+  for(const color of colors){
+    const opt=document.createElement('option');
+    opt.value=color.toLowerCase();
+    opt.textContent=color;
+    colorSelect.appendChild(opt);
+  }
+
+  for(const area of areas){
+    const opt=document.createElement('option');
+    opt.value=area;
+    opt.textContent=area;
+    areaSelect.appendChild(opt);
+  }
+}
+
+function applyRegistryFilters(){
+  renderRegistry();
+}
+
+function renderRegistry(){
+  const listEl = document.getElementById('registry-list');
+  const footer = document.getElementById('registry-footer');
+  const colorFilter = document.getElementById('filter-color').value;
+  const areaFilter = document.getElementById('filter-area').value;
+  const classFilter = document.getElementById('filter-class').value;
+
+  const items = Object.keys(BINS)
+    .filter(id => {
+      const bin = BINS[id];
+      const colorMatch = colorFilter === 'all' || bin.warna.toLowerCase() === colorFilter;
+      const areaMatch = areaFilter === 'all' || bin.main === areaFilter;
+      const classMatch = classFilter === 'all' || (classFilter === 'b3' ? bin.b3 : !bin.b3);
+      return colorMatch && areaMatch && classMatch;
+    })
+    .sort((a,b)=>a.localeCompare(b,undefined,{numeric:true, sensitivity:'base'}));
+
+  listEl.innerHTML = '';
+  if(items.length === 0){
+    listEl.innerHTML = '<div class="nf"><div class="nf-icon">📭</div><div class="nf-title">No bins match filter</div><div class="nf-sub">Try selecting a different color or safety class.</div></div>';
+    footer.textContent = 'Showing 0 bins.';
+    return;
+  }
+
+  const visibleItems = items.slice(0,8);
+  for(const id of visibleItems){
+    const bin = BINS[id];
+    const w = WARNA_CFG[bin.warna] || {light:'#f5f5f5',dark:'#333'};
+    const item = document.createElement('div');
+    item.className='registry-item';
+    item.innerHTML = `
+      <div class="code-pill">${id}</div>
+      <div class="item-meta">
+        <h3>${bin.main}</h3>
+        <p>${bin.owner} · ${bin.specific}</p>
+      </div>
+      <div class="item-badge" style="background:${w.light};color:${w.dark};border:1px solid ${w.dark}">${bin.warna}</div>
+    `;
+    item.onclick = ()=>showDetail(id);
+    listEl.appendChild(item);
+  }
+
+  footer.textContent = `Showing ${visibleItems.length} of ${items.length} matched bins.`;
+}
 
 </script>
 </body>
