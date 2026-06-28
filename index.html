@@ -129,10 +129,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   .hero-label{font-size:9px;}
   .hero-title{font-size:22px;}
   .hero-sub{font-size:11px;}
-  .search-row{flex-direction:column;}
-  .search-row input{width:100%;}
-  .search-row button{width:100%;}
-  .scan-btn{width:100%;}
+  .search-row{flex-wrap:wrap;align-items:center;}
+  .search-row input{width:100%;flex:1 1 auto;min-width:140px;}
+  .search-row .scan-inline{margin-left:0;}
+  .search-row .search-btn{flex:1 1 100%;width:100%;margin-top:10px;}
   .registry-item{flex-direction:column;align-items:flex-start;}
   .registry-item .code-pill{width:auto;}
   .registry-item .item-meta h3{font-size:13px;}
@@ -306,7 +306,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         <button class="scan-inline" onclick="openScanner()" title="Scan QR code" aria-label="Scan QR code">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="2"/></svg>
         </button>
-        <button onclick="doSearch()">Search</button>
+        <button class="search-btn" onclick="doSearch()">Search</button>
       </div>
       <div style="margin-top:8px;font-size:11px;color:#5a6a7a;line-height:1.45;">Enter a Waste Bin ID or scan a QR Code to quickly access asset details.</div>
     </div>
