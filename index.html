@@ -100,6 +100,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .registry-item .item-badge.red{background:#FDECEC;color:#C0392B;border:1px solid rgba(192,57,43,.12)}
 .registry-item .item-badge.blue{background:#EAF3FE;color:#1A5276;border:1px solid rgba(23,94,148,.12)}
 .registry-footer{margin-top:14px;padding-top:12px;border-top:1px solid rgba(228,234,240,.9);font-size:12px;color:var(--text3)}
+.pagination-bar{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px}
+.page-btn{border:1px solid rgba(228,234,240,.9);background:#fff;color:var(--text1);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;min-width:38px}
+.page-btn:hover{border-color:var(--teal);color:var(--teal)}
+.page-btn.active{background:linear-gradient(135deg,var(--teal) 0%,var(--teal2) 100%);color:#fff;border-color:transparent}
+.page-btn:disabled{opacity:.45;cursor:not-allowed}
 .legend-card{margin-top:20px;background:rgba(239,249,255,.8);border-radius:16px;padding:18px;}
 .legend-title{font-size:13px;font-weight:700;color:var(--text1);margin-bottom:10px}
 .legend-list{list-style:none;padding-left:0;margin:0;color:var(--text2);font-size:13px;line-height:1.6}
@@ -336,6 +341,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
           </div>
         </div>
         <div class="registry-list" id="registry-list"></div>
+        <div class="pagination-bar" id="registry-pagination"></div>
         <div class="registry-footer" id="registry-footer"></div>
       </div>
     </div>
@@ -745,8 +751,38 @@ function doSearch(){
   if(v) showDetail(v);
 }
 
+function extractBinId(value){
+  let code = String(value || '').trim();
+  if(!code) return '';
+
+  const paramMatch = code.match(/[?&]id=([^&\s]+)/i);
+  if(paramMatch){
+    return decodeURIComponent(paramMatch[1]).trim().toUpperCase();
+  }
+
+  try {
+    if(/^(https?:)?\/\//i.test(code)){
+      const url = new URL(code, window.location.origin);
+      const idParam = url.searchParams.get('id') || url.searchParams.get('ID');
+      if(idParam) return idParam.trim().toUpperCase();
+      const pathParts = url.pathname.replace(/\/+$/,'').split('/').filter(Boolean);
+      if(pathParts.length) return pathParts[pathParts.length-1].trim().toUpperCase();
+    }
+  } catch(e) {
+    // not a valid URL, continue with fallback
+  }
+
+  if(code.includes('/')){
+    const parts = code.split('/').filter(Boolean);
+    const last = parts[parts.length-1];
+    if(last) return last.trim().toUpperCase();
+  }
+
+  return code.toUpperCase();
+}
+
 function showDetail(id){
-  id=id.trim().toUpperCase();
+  id = extractBinId(id);
   const bin=BINS[id];
   const out=document.getElementById('detail-out');
 
@@ -884,7 +920,7 @@ async function startScanLoop(){
         ctx.drawImage(video,0,0,canvas.width,canvas.height);
         const barcodes=await detector.detect(canvas);
         if(barcodes && barcodes.length>0){
-          const code=(barcodes[0].rawValue||'').trim().toUpperCase();
+          const code=(barcodes[0].rawValue||'').trim();
           if(code){
             closeScanner();
             showDetail(code);
@@ -903,7 +939,8 @@ async function startScanLoop(){
 }
 
 window.addEventListener('load',()=>{
-  const id=new URLSearchParams(window.location.search).get('id');
+  const rawId=new URLSearchParams(window.location.search).get('id');
+  const id = extractBinId(rawId);
   if(id) showDetail(id);
 });
 
@@ -974,13 +1011,35 @@ function populateRegistryFilters(){
   }
 }
 
+const REGISTRY_PAGE_SIZE = 8;
+const REGISTRY_MAX_PAGE_BUTTONS = 5;
+let registryPage = 1;
+
+function getFilteredRegistryItems(){
+  const colorFilter = document.getElementById('filter-color').value;
+  const areaFilter = document.getElementById('filter-area').value;
+  const classFilter = document.getElementById('filter-class').value;
+
+  return Object.keys(BINS)
+    .filter(id => {
+      const bin = BINS[id];
+      const colorMatch = colorFilter === 'all' || bin.warna.toLowerCase() === colorFilter;
+      const areaMatch = areaFilter === 'all' || bin.main === areaFilter;
+      const classMatch = classFilter === 'all' || (classFilter === 'b3' ? bin.b3 : !bin.b3);
+      return colorMatch && areaMatch && classMatch;
+    })
+    .sort((a,b)=>a.localeCompare(b,undefined,{numeric:true, sensitivity:'base'}));
+}
+
 function applyRegistryFilters(){
+  registryPage = 1;
   renderRegistry();
 }
 
 function renderRegistry(){
   const listEl = document.getElementById('registry-list');
   const footer = document.getElementById('registry-footer');
+  const paginationEl = document.getElementById('registry-pagination');
   const colorFilter = document.getElementById('filter-color').value;
   const areaFilter = document.getElementById('filter-area').value;
   const classFilter = document.getElementById('filter-class').value;
@@ -995,14 +1054,19 @@ function renderRegistry(){
     })
     .sort((a,b)=>a.localeCompare(b,undefined,{numeric:true, sensitivity:'base'}));
 
+  const totalPages = Math.max(1, Math.ceil(items.length / REGISTRY_PAGE_SIZE));
+  if(registryPage > totalPages) registryPage = totalPages;
+
   listEl.innerHTML = '';
   if(items.length === 0){
     listEl.innerHTML = '<div class="nf"><div class="nf-icon">📭</div><div class="nf-title">No bins match filter</div><div class="nf-sub">Try selecting a different color or safety class.</div></div>';
     footer.textContent = 'Showing 0 bins.';
+    paginationEl.innerHTML = '';
     return;
   }
 
-  const visibleItems = items.slice(0,8);
+  const start = (registryPage - 1) * REGISTRY_PAGE_SIZE;
+  const visibleItems = items.slice(start, start + REGISTRY_PAGE_SIZE);
   for(const id of visibleItems){
     const bin = BINS[id];
     const w = WARNA_CFG[bin.warna] || {light:'#f5f5f5',dark:'#333'};
@@ -1020,7 +1084,36 @@ function renderRegistry(){
     listEl.appendChild(item);
   }
 
-  footer.textContent = `Showing ${visibleItems.length} of ${items.length} matched bins.`;
+  if(totalPages <= 1){
+    paginationEl.innerHTML = '';
+  } else {
+    const pageButtons = [];
+    const half = Math.floor(REGISTRY_MAX_PAGE_BUTTONS / 2);
+    let startPage = Math.max(1, registryPage - half);
+    let endPage = Math.min(totalPages, startPage + REGISTRY_MAX_PAGE_BUTTONS - 1);
+    if(endPage - startPage + 1 < REGISTRY_MAX_PAGE_BUTTONS){
+      startPage = Math.max(1, endPage - REGISTRY_MAX_PAGE_BUTTONS + 1);
+    }
+
+    for(let p = startPage; p <= endPage; p++){
+      pageButtons.push(`<button class="page-btn ${p === registryPage ? 'active' : ''}" onclick="changeRegistryPage(${p})">${p}</button>`);
+    }
+
+    paginationEl.innerHTML = `
+      <button class="page-btn" ${registryPage === 1 ? 'disabled' : ''} onclick="changeRegistryPage(${registryPage - 1})">← Prev</button>
+      ${pageButtons.join('')}
+      <button class="page-btn" ${registryPage === totalPages ? 'disabled' : ''} onclick="changeRegistryPage(${registryPage + 1})">Next →</button>
+    `;
+  }
+
+  footer.textContent = `Showing ${visibleItems.length} of ${items.length} matched bins. Page ${registryPage} of ${totalPages}.`;
+}
+
+function changeRegistryPage(page){
+  const items = getFilteredRegistryItems();
+  const totalPages = Math.max(1, Math.ceil(items.length / REGISTRY_PAGE_SIZE));
+  registryPage = Math.max(1, Math.min(page, totalPages));
+  renderRegistry();
 }
 
 </script>
